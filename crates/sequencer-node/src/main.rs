@@ -18,6 +18,9 @@ use trading::{
     IntentBundle, OrderLevel as ProtoOrderLevel, PlaceOrderRequest, PlaceOrderResponse,
     Side as ProtoSide, TradeExecution,
 };
+use settlement::SettlementEngine;
+
+mod settlement;
 
 pub mod trading {
     tonic::include_proto!("trading");
@@ -322,6 +325,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let (tx, rx) = mpsc::channel(1024);
     // Channel Broadcast: kapasitas 100 pesan. Jika client lambat, pesan lama didrop (lag).
     let (broadcast_tx, _) = broadcast::channel(100);
+
+    let aegis_url = std::env::var("AEGIS_URL").unwrap_or_else(|_| "127.0.0.1:9000".to_string());
+    let settlement = SettlementEngine::new(aegis_url).await;
 
     // 2. Spawn Market Processor (The Engine) di background thread
     let processor_broadcast_tx = broadcast_tx.clone();

@@ -1,0 +1,17 @@
+[package]
+name = "bridge-contract"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+aegis-sdk = { workspace = true }
+aegis-core = { workspace = true }
+
+wee_alloc = "0.4.5"
+borsh = { workspace = true }
+serde = { workspace = true }
+ark-ff = { workspace = true }
+ark-bls12-377 = { workspace = true }

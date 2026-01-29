@@ -1,0 +1,17 @@
+[package]
+name = "aegis-sdk"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+aegis-core = { path = "../aegis-core" }
+
+ark-std = { workspace = true }
+spin = { workspace = true }
+serde = { workspace = true }
+borsh = { workspace = true }
+
+[features]
+# Aktifkan fitur ini saat mengkompilasi kontrak untuk deployment ke blockchain.
+# Jika tidak diaktifkan, kontrak akan menggunakan penyimpanan in-memory untuk pengujian.
+on-chain = []

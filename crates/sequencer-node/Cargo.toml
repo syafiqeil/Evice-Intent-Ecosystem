@@ -6,7 +6,9 @@ edition = "2021"
 [dependencies]
 common = { workspace = true }
 engine = { workspace = true }
+aegis-node = { workspace = true }
 
+tarpc = { workspace = true }
 tonic = { workspace = true }
 prost = { workspace = true }
 tokio = { workspace = true }
