@@ -1,10 +1,8 @@
-// evice-contract-sdk/src/storage.rs
+// aegis-sdk/src/storage.rs
 
 use borsh::{BorshDeserialize, BorshSerialize};
 
-// ==============================================================================
-//           IMPLEMENTASI ON-CHAIN (AKTIF DENGAN --features "on-chain")
-// ==============================================================================
+// --- IMPLEMENTASI ON-CHAIN (AKTIF DENGAN --features "on-chain")
 #[cfg(feature = "on-chain")]
 mod implementation {
     use super::{BorshDeserialize, BorshSerialize};
@@ -22,9 +20,7 @@ mod implementation {
     }
 }
 
-// ==============================================================================
-//        IMPLEMENTASI IN-MEMORY / MOCK (AKTIF SECARA DEFAULT UNTUK TES)
-// ==============================================================================
+// --- IMPLEMENTASI IN-MEMORY / MOCK (AKTIF SECARA DEFAULT UNTUK TES) ---
 #[cfg(not(feature = "on-chain"))]
 mod implementation {
     extern crate alloc;

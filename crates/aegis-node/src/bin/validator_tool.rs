@@ -1,7 +1,7 @@
-// evice_blockchain/src/bin/validator_tool.rs
+// aegis-node/src/bin/validator_tool.rs
 
 use clap::Parser;
-use evice_blockchain::{
+use aegis_node::{
     crypto::{public_key_to_address, ValidatorKeys},
     keystore::Keystore,
 };

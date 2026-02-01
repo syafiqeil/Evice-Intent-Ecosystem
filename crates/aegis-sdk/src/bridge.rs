@@ -1,4 +1,4 @@
-// evice-contract-sdk/src/bridge.rs
+// aegis-sdk/src/bridge.rs
 
 use crate::Address;
 use alloc::vec;

@@ -1,6 +1,6 @@
-// evice_blockchain/src/bin/create_evidence.rs
+// aegis-node/src/bin/create_evidence.rs
 
-use evice_blockchain::{
+use aegis_node::{
     blockchain::BlockHeader,
     crypto::{public_key_to_address, KeyPair, SIGNATURE_SIZE},
 };

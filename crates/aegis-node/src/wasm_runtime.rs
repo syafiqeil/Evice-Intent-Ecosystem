@@ -1,4 +1,4 @@
-// src/wasm_runtime.rs 
+// aegis-node/src/wasm_runtime.rs 
 
 use crate::{
     state::{StateMachine, TrieSession, COL_CONTRACT_STORAGE},

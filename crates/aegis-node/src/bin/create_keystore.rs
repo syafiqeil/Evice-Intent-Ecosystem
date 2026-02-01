@@ -1,7 +1,7 @@
-// evice_blockchain/src/bin/create_keystore.rs
+// aegis-node/src/bin/create_keystore.rs
 
 use clap::Parser;
-use evice_blockchain::{
+use aegis_node::{
     crypto::{KeyPair, PRIVATE_KEY_SIZE},
     keystore::Keystore,
 };

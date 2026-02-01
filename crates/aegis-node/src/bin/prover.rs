@@ -1,4 +1,4 @@
-// evice_blockchain/src/bin/prover.rs
+// aegis-node/src/bin/prover.rs
 
 use ark_bls12_377::Bls12_377;
 use ark_groth16::{Groth16, ProvingKey};
@@ -6,7 +6,7 @@ use ark_serialize::{CanonicalDeserialize, CanonicalSerialize};
 use ark_snark::SNARK;
 use ark_std::rand::thread_rng;
 use clap::Parser;
-use evice_blockchain::l2_circuit::{BatchSystemCircuit, PoseidonMerkleTreeParams};
+use aegis_node::l2_circuit::{BatchSystemCircuit, PoseidonMerkleTreeParams};
 use std::fs::File;
 
 #[derive(Parser, Debug)]

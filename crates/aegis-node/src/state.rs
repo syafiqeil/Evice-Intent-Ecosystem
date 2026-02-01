@@ -1,4 +1,4 @@
-// evice_blockchain/src/state.rs
+// aegis-node/src/state.rs
 
 use bincode::{Decode, Encode};
 use libp2p::Multiaddr;

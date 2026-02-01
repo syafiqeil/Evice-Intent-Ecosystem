@@ -21,7 +21,7 @@ use ark_serialize::{
     CanonicalDeserialize, CanonicalSerialize, Read, SerializationError, Valid, Write,
 };
 use ark_snark::SNARK;
-use evice_core::{Leaf, LeafCRH, MerkleTreeConfig};
+use aegis_core::{Leaf, LeafCRH, MerkleTreeConfig};
 use std::marker::PhantomData;
 use std::str::FromStr;
 use thiserror::Error;

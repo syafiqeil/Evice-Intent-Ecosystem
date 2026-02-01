@@ -1,9 +1,9 @@
 // crates/user-client/build.rs
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    tonic_build::configure()
+    tonic_prost_build::configure()
         .build_server(false)
         .build_client(true)
-        .compile(&["../../proto/service.proto"], &["../../proto"])?;
+        .compile_protos(&["../../proto/service.proto"], &["../../proto"])?;
     Ok(())
 }

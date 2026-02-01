@@ -1,4 +1,4 @@
-// evice_blockchain/src/block_tree.rs
+// aegis-node/src/block_tree.rs
 
 use crate::blockchain::{Block, Blockchain, BlockchainError};
 use crate::consensus::VelocityVote;

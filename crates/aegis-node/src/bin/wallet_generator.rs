@@ -1,10 +1,10 @@
-// evice_blockchain/src/bin/wallet_generator.rs
+// aegis-node/src/bin/wallet_generator.rs
 
 use actix_web::{
     error::ErrorInternalServerError, get, post, web, App, HttpResponse, HttpServer, Responder,
 };
 use clap::Parser;
-use evice_blockchain::{
+use aegis_node::{
     crypto::{public_key_to_address, PRIVATE_KEY_SIZE, PUBLIC_KEY_SIZE},
     rpc_client::RpcClient,
 };
@@ -13,8 +13,8 @@ use serde::{Deserialize, Serialize};
 // --- MODUL 1: CORE LOGIC ---
 mod core_logic {
     use super::*;
-    use evice_blockchain::crypto::ValidatorKeys;
-    use evice_blockchain::keystore::Keystore;
+    use aegis_node::crypto::ValidatorKeys;
+    use aegis_node::keystore::Keystore;
 
     #[derive(Serialize)]
     pub struct FullWalletInfo {
@@ -66,7 +66,7 @@ mod core_logic {
 // --- MODUL 2: API HANDLERS ---
 mod api_handlers {
     use super::*;
-    use evice_blockchain::Transaction;
+    use aegis_node::Transaction;
 
     #[derive(Deserialize)]
     pub struct CreateKeystoreRequest {

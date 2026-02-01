@@ -1,4 +1,4 @@
-// evice_blockchain/src/blockchain.rs
+// aegis-node/src/blockchain.rs
 
 use ark_bls12_377::{Bls12_377, Fr};
 use ark_bw6_761::{Fr as Bw6_761Fr, BW6_761};

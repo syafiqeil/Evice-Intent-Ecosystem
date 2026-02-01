@@ -1,4 +1,4 @@
-// evice_blockchain/src/p2p.rs
+// aegis-node/src/p2p.rs
 
 use libp2p::{
     futures::StreamExt,

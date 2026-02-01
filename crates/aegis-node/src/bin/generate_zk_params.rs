@@ -1,11 +1,11 @@
-// evice_blockchain/src/bin/generate_zk_params.rs
+// aegis-node/src/bin/generate_zk_params.rs
 
 use ark_bls12_377::{Bls12_377, Fr};
 use ark_groth16::Groth16;
 use ark_serialize::CanonicalSerialize;
 use ark_snark::SNARK;
 use ark_std::rand::thread_rng;
-use evice_blockchain::l2_circuit::{get_poseidon_parameters, BatchSystemCircuit};
+use aegis_node::l2_circuit::{get_poseidon_parameters, BatchSystemCircuit};
 use std::fs::File;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {

@@ -1,12 +1,12 @@
-// evice_blockchain/src/bin/faucet.rs
+// aegis-node/src/bin/faucet.rs
 
 use actix_web::{
     error::ErrorInternalServerError, post, web, App, HttpResponse, HttpServer, Responder,
 };
 use actix_web_ratelimit::{config::RateLimitConfig, store::MemoryStore, RateLimit};
 use clap::Parser;
-use evice_blockchain::{
-    crypto::{KeyPair, ADDRESS_SIZE, SIGNATURE_SIZE},
+use aegis_node::{
+    crypto::{self, KeyPair, ADDRESS_SIZE, SIGNATURE_SIZE},
     genesis::Genesis,
     keystore::Keystore,
     rpc_client::RpcClient,
@@ -80,8 +80,7 @@ async fn drip(state: web::Data<AppState>, req: web::Json<FaucetRequest>) -> impl
     let recipient_address = Address(recipient_bytes);
     let mut rpc_client = state.rpc_client.lock().unwrap();
 
-    let faucet_address =
-        evice_blockchain::crypto::public_key_to_address(&state.faucet_public_key.0);
+    let faucet_address = crypto::public_key_to_address(&state.faucet_public_key.0);
 
     // Dapatkan nonce terbaru untuk akun faucet
     let nonce = match rpc_client.get_l1_account_info(faucet_address).await {

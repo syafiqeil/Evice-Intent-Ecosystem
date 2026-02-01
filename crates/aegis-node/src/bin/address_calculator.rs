@@ -1,6 +1,6 @@
-// evice_blockchain/src/bin/address_calculator.rs
+// aegis-node/src/bin/address_calculator.rs
 
-use evice_blockchain::crypto::public_key_to_address;
+use aegis_node::crypto::{self, public_key_to_address};
 use std::env;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -13,13 +13,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let pub_key_hex = &args[1];
     let pub_key_bytes_vec = hex::decode(pub_key_hex)?;
 
-    let pub_key_bytes: [u8; evice_blockchain::crypto::PUBLIC_KEY_SIZE] =
+    let pub_key_bytes: [u8; crypto::PUBLIC_KEY_SIZE] =
         match pub_key_bytes_vec.try_into() {
             Ok(arr) => arr,
             Err(_) => {
                 return Err(format!(
                     "Invalid public key length. Expected {} bytes.",
-                    evice_blockchain::crypto::PUBLIC_KEY_SIZE
+                    crypto::PUBLIC_KEY_SIZE
                 )
                 .into())
             }

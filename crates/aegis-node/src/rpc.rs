@@ -1,4 +1,4 @@
-// evice_blockchain/src/rpc.rs
+// aegis-node/src/rpc.rs
 
 use crate::{
     blockchain::{Block, Blockchain, ChainMessage},

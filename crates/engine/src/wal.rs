@@ -1,17 +1,17 @@
 // crates/engine-core/src/wal.rs
 
-use crate::LogEntry;
 use std::fs::{File, OpenOptions};
 use std::io::{BufReader, BufWriter, Write};
-use std::path::Path;
+use anyhow::Result;
+use bincode::config;
+use crate::LogEntry;
 
 pub struct WalHandler {
     writer: BufWriter<File>,
 }
 
 impl WalHandler {
-    // Membuka atau membuat file WAL baru
-    pub fn new(path: &str) -> std::io::Result<Self> {
+    pub fn new(path: &str) -> Result<Self> {
         let file = OpenOptions::new()
             .create(true)
             .write(true)
@@ -24,34 +24,48 @@ impl WalHandler {
     }
 
     // Menulis satu entry ke disk
-    pub fn write_entry(&mut self, entry: &LogEntry) -> std::io::Result<()> {
+    pub fn write_entry(&mut self, entry: &LogEntry) -> Result<()> {
         // Serialize langsung ke buffer writer
-        bincode::serialize_into(&mut self.writer, entry)
-            .map_err(|e| std::io::Error::new(std::io::ErrorKind::Other, e))?;
+        bincode::serde::encode_into_std_write(
+            entry, 
+            &mut self.writer, 
+            config::standard() 
+        )?;
 
         // Untuk HFT murni, biasanya flush dilakukan per batch atau interval waktu
         // Pada skala seperti ini, flush setiap kali demi keamanan data
         self.writer.flush()?;
-
         Ok(())
     }
 
     // Membaca ulang semua entry saat startup (Recovery)
-    pub fn read_all(path: &str) -> std::io::Result<Vec<LogEntry>> {
-        let path = Path::new(path);
-        if !path.exists() {
+    pub fn read_all(path: &str) -> Result<Vec<LogEntry>> {
+        let file = OpenOptions::new().read(true).open(path);
+
+        if file.is_err() {
             return Ok(Vec::new());
         }
-
-        let file = File::open(path)?;
+        
+        let file = file.unwrap();
         let mut reader = BufReader::new(file);
         let mut entries = Vec::new();
 
-        // Loop baca file sampai EOF (End of File)
         loop {
-            match bincode::deserialize_from(&mut reader) {
-                Ok(entry) => entries.push(entry),
-                Err(_) => break,
+            // decode_from_std_read mengembalikan Result<T, DecodeError>
+            // disini menentukan tipe T secara eksplisit atau via inferensi
+            let result: Result<LogEntry, _> = bincode::serde::decode_from_std_read(
+                &mut reader, 
+                config::standard()
+            );
+
+            match result {
+                Ok(entry) => {
+                    entries.push(entry);
+                }
+                Err(_) => {
+                    // Error biasanya berarti EOF (End of File)
+                    break;
+                }
             }
         }
 

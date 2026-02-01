@@ -1,53 +1,50 @@
 // crates/sequencer-node/src/settlement.rs
 
-use aegis_node::rpc_client::Client as AegisClient;
-use std::net::SocketAddr;
-use tarpc::{Client, context};
-use tokio::net::TcpStream;
-use tracing::{info, error};
+use aegis_node::rpc_client::RpcClient;
+use aegis_node::Transaction; 
+use tracing::{info, error, warn};
+use std::sync::Arc;
+use tokio::sync::Mutex;
 
 pub struct SettlementEngine {
-    client: Option<AegisClient>,
+    client: Arc<Mutex<Option<RpcClient>>>, 
 }
 
 impl SettlementEngine {
-    pub async fn new(aegis_addr: String) -> Self {
-        info!("Connecting to Aegis Settlement Layer at {}...", aegis_addr);
+    pub async fn new(aegis_l1_url: String) -> Self {
+        info!("🌉 Initializing Bridge to Aegis Settlement Layer at {}...", aegis_l1_url);
+        
+        let l2_url_dummy = "http://localhost:3000".to_string();
 
-        let client = match TcpStream::connect(&aegis_addr).await {
-            Ok(stream) => {
-                let transport = tarpc::serde_transport::Transport::new(
-                    tarpc::serde_transport::new(stream, tarpc::tokio_serde::formats::Json::default()),
-                    tarpc::tokio_serde::formats::Json::default()
-                );
-                let client = AegisClient::new(client::Config::default(), transport).spawn();
-                info!("✅ Connected to Aegis L1!");
+        let client_option = match RpcClient::new(aegis_l1_url.clone(), l2_url_dummy).await {
+            Ok(client) => {
+                info!("✅ Connected to Aegis L1 Settlement Layer!");
                 Some(client)
             }
             Err(e) => {
-                error!("⚠️ Failed to connect to Aegis: {}. Settlement disabled.", e);
+                warn!("⚠️ Failed to connect to Aegis L1: {}. Running in Standalone Mode.", e);
                 None
             }
         };
 
-        Self { client }
+        Self {
+            client: Arc::new(Mutex::new(client_option)),
+        }
     }
 
-    pub async fn submit_batch(&self, batch_data: Vec<u8>) {
-        if let Some(client) = &self.client {
-            info!("Submitting Batch to Aegis (Size: {} bytes)...", batch_data.len());
-
-            // CONTOH CALL (Sesuaikan dengan definisi RPC Aegis Anda):
-            // let context = context::current();
-            // match client.submit_transaction(context, batch_data).await {
-            //     Ok(tx_hash) => info!("✅ Batch Finalized! Hash: {:?}", tx_hash),
-            //     Err(e) => error!("❌ Settlement Failed: {:?}", e),
-            // }
+    // Fungsi untuk mengirim batch transaksi (State Root Update) ke L1
+    pub async fn submit_batch(&self, tx: Transaction) {
+        let mut guard = self.client.lock().await;
+        
+        if let Some(client) = guard.as_mut() {
+            info!("📦 Submitting Settlement Tx to Aegis...");
             
-            // Mock Log dulu agar compile
-            info!("(Mock) Batch submitted successfully.");
+            match client.submit_l1_transaction(&tx).await {
+                Ok(tx_hash) => info!("✅ Settlement Success! Aegis TxHash: {}", tx_hash),
+                Err(e) => error!("❌ Settlement Failed: {:?}", e),
+            }
         } else {
-            error!("❌ Cannot submit batch: Aegis not connected.");
+            warn!("Cannot submit batch: Aegis L1 disconnected.");
         }
     }
 }

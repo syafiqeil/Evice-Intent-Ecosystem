@@ -6,7 +6,7 @@ use alloc::format;
 use ark_bls12_377::Fr;
 use ark_ff::{BigInteger, PrimeField};
 use evice_contract_sdk as sdk;
-use evice_core::{Address, WithdrawalProof};
+use aegis_core::{Address, WithdrawalProof};
 
 fn verify_merkle_proof(proof: &WithdrawalProof) {
     let valid_l2_root_bytes = sdk::bridge::host::l2_state_root();

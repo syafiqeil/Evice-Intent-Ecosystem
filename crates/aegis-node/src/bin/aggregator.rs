@@ -1,4 +1,4 @@
-// evice_blockchain/src/bin/aggregator.rs
+// aegis-node/src/bin/aggregator.rs
 
 use ark_bls12_377::{Bls12_377, Fr as Bls12_377Fr};
 use ark_bw6_761::{Fr as Bw6_761Fr, BW6_761};
@@ -10,7 +10,7 @@ use ark_serialize::{CanonicalDeserialize, CanonicalSerialize};
 use ark_snark::{CircuitSpecificSetupSNARK, SNARK};
 use ark_std::rand::thread_rng;
 use clap::Parser;
-use evice_blockchain::l2_aggregation::AggregationCircuit;
+use aegis_node::l2_aggregation::AggregationCircuit;
 use std::fs::File;
 use std::io::Write;
 use std::path::PathBuf;

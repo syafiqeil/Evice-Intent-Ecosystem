@@ -1,4 +1,4 @@
-// evice_blockchain/src/sequencer_selection.rs
+// aegis-node/src/sequencer_selection.rs
 
 use crate::rpc_client::RpcChainSnapshot;
 use crate::Address;

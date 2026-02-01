@@ -1,4 +1,4 @@
-// src/consensus.rs
+// aegis-node/src/consensus.rs
 
 use bincode::{Decode, Encode};
 use borsh::{BorshDeserialize, BorshSerialize};

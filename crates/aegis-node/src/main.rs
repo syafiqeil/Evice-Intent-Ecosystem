@@ -1,4 +1,4 @@
-// src/main.rs
+// aegis-node/src/main.rs
 
 use async_recursion::async_recursion;
 use sha2::Digest;
@@ -22,7 +22,7 @@ use rand::{RngCore, SeedableRng, Rng, seq::SliceRandom};
 use rpassword::read_password;
 use blst::min_pk::SecretKey as BlsSecretKey;
 use schnorrkel::SecretKey as SchnorrkelSecretKey;
-use evice_blockchain::{
+use aegis_node::{
     blockchain::{
         Block, Blockchain, BlockchainError,
         ChainMessage, BlockHeader
@@ -35,7 +35,7 @@ use evice_blockchain::{
     p2p::{self, P2pCommand, SyncRequest, SyncResponse, AddressBook},
     block_tree::{BlockProcessingResult, BlockTree, BlockNodeStatus},
     state::COL_TRIE,
-    genesis::{Genesis, GenesisAccount},
+    genesis::{self, Genesis, GenesisAccount},
     snapshot::{self, SnapshotMetadata},
     keystore::Keystore,
     mempool::Mempool,
@@ -1362,7 +1362,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
                 .as_secs(),
             chain_id: "evice-testnet-v1".to_string(),
 
-            parameters: evice_blockchain::genesis::GenesisParameters {
+            parameters: genesis::GenesisParameters {
                 aegis_sub_committee_size: 6,
                 aegis_gravity_epoch_length: 10,
                 proposer_timeout_ms: 1200,

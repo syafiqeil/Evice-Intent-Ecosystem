@@ -1,4 +1,4 @@
-// evice_blockchain/src/lib.rs
+// aegis-node/src/lib.rs
 
 use bincode::{Decode, Encode};
 use borsh::{BorshDeserialize, BorshSerialize};
@@ -14,7 +14,7 @@ use crate::blockchain::{DoubleSignEvidence, Signature};
 use crate::crypto::{public_key_to_address, PUBLIC_KEY_SIZE};
 use crate::governance::Proposal;
 
-pub use evice_core::{Address, Leaf, MerkleTreeConfig, WithdrawalProof};
+pub use aegis_core::{Address, Leaf, MerkleTreeConfig, WithdrawalProof};
 
 pub mod blockchain;
 pub mod consensus;

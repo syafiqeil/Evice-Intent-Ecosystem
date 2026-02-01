@@ -1,4 +1,4 @@
-// evice_blockchain/src/governance.rs
+// aegis-node/src/governance.rs
 
 use crate::Address;
 use bincode::{Decode, Encode};

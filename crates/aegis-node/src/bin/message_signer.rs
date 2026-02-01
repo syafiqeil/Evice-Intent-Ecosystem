@@ -1,6 +1,6 @@
-// evice_blockchain/src/bin/message_signer.rs
+// aegis-node/src/bin/message_signer.rs
 
-use evice_blockchain::crypto::{KeyPair, PRIVATE_KEY_SIZE, PUBLIC_KEY_SIZE};
+use aegis_node::crypto::{KeyPair, PRIVATE_KEY_SIZE, PUBLIC_KEY_SIZE};
 use sha2::{Digest, Sha256};
 use std::env;
 

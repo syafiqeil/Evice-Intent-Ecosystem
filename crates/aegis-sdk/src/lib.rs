@@ -1,4 +1,4 @@
-// evice-contract-sdk/src/lib.rs
+// aegis-sdk/src/lib.rs
 
 #![no_std]
 extern crate alloc;

@@ -1,4 +1,4 @@
-// evice_blockchain/src/keystore.rs
+// aegis-node/src/keystore.rs
 
 use ark_std::rand::RngCore;
 use serde::{Deserialize, Serialize};

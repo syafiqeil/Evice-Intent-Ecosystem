@@ -1,4 +1,4 @@
-// evice_blockchain/src/crypto.rs
+// aegis-node/src/crypto.rs
 
 use blst::min_pk::{
     AggregateSignature, PublicKey as BlsPublicKey, SecretKey as BlsSecretKey,

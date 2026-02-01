@@ -1,17 +1,17 @@
-// evice_blockchain/src/bin/create_tx.rs
+// aegis-node/src/bin/create_tx.rs
 
 use borsh::BorshSerialize;
 use clap::{Parser, Subcommand};
-use evice_blockchain::{
+use aegis_node::{
     blockchain::{BlockHeader, DoubleSignEvidence},
     crypto::{KeyPair, ADDRESS_SIZE, SIGNATURE_SIZE},
     genesis::Genesis,
     governance::{Proposal, ProposalAction},
     keystore::Keystore,
     rpc_client::RpcClient,
-    FullPublicKey, Transaction, TransactionData,
+    FullPublicKey, Transaction, TransactionData, state
 };
-use evice_core::{Address, WithdrawalProof};
+use aegis_core::{Address, WithdrawalProof};
 use rpassword::read_password;
 use serde_json::json;
 use sha2::Digest;
@@ -311,7 +311,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             let call_data = borsh::to_vec(&action)?;
 
             let data = TransactionData::CallContract {
-                contract_address: evice_blockchain::state::L2_BRIDGE_ADDRESS,
+                contract_address: state::L2_BRIDGE_ADDRESS,
                 call_data,
             };
 

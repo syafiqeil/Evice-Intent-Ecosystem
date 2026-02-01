@@ -1,4 +1,4 @@
-// evice_blockchain/src/genesis.rs
+// aegis-node/src/genesis.rs
 
 use serde::{Deserialize, Serialize};
 use std::{collections::HashMap, fs::File, path::Path};

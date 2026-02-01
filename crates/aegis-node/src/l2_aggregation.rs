@@ -1,4 +1,4 @@
-// evice_blockchain/src/l2_aggregation.rs
+// aegis-node/src/l2_aggregation.rs
 
 use ark_bls12_377::{Bls12_377, Config as Bls12_377Config, Fr as Bls12_377Fr};
 use ark_bw6_761::Fr as Bw6_761Fr;

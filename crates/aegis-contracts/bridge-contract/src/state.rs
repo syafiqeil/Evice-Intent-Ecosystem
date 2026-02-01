@@ -2,7 +2,7 @@
 
 use alloc::vec::Vec;
 use borsh::{BorshDeserialize, BorshSerialize};
-use evice_core::{Address, WithdrawalProof};
+use aegis_core::{Address, WithdrawalProof};
 
 pub const STATE_KEY: &[u8] = b"STATE";
 

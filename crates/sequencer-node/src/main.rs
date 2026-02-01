@@ -26,7 +26,6 @@ pub mod trading {
     tonic::include_proto!("trading");
 }
 
-// Struct Service gRPC
 pub struct TradingService {
     // Channel untuk mengirim command ke MarketProcessor (Actor)
     processor_sender: mpsc::Sender<Command>,
@@ -236,7 +235,7 @@ impl TradingEngine for TradingService {
             .await
             .map_err(|_| Status::internal("Engine down"))?;
 
-        // Tunggu hasil (Sync operation di dalam Actor sangat cepat)
+        // Tunggu hasil 
         let (asks, bids) = resp_rx.await.map_err(|_| Status::internal("No response"))?;
 
         // Mapping dari Engine struct ke Proto struct
@@ -313,7 +312,7 @@ async fn handle_socket(mut socket: WebSocket, broadcast_tx: broadcast::Sender<En
         // Kirim string JSON ke Client WebSocket
         if let Ok(msg_text) = serde_json::to_string(&json_msg) {
             if socket.send(Message::Text(msg_text)).await.is_err() {
-                break; // Client disconnect
+                break; 
             }
         }
     }
@@ -326,8 +325,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Channel Broadcast: kapasitas 100 pesan. Jika client lambat, pesan lama didrop (lag).
     let (broadcast_tx, _) = broadcast::channel(100);
 
-    let aegis_url = std::env::var("AEGIS_URL").unwrap_or_else(|_| "127.0.0.1:9000".to_string());
-    let settlement = SettlementEngine::new(aegis_url).await;
+    let aegis_url = std::env::var("AEGIS_URL").unwrap_or_else(|_| "https://127.0.0.1:50051".to_string());
+    let _settlement = SettlementEngine::new(aegis_url).await;
 
     // 2. Spawn Market Processor (The Engine) di background thread
     let processor_broadcast_tx = broadcast_tx.clone();

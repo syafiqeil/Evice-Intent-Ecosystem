@@ -1,4 +1,4 @@
-// evice-contract-sdk/src/env.rs
+// aegis-sdk/src/env.rs
 
 use crate::{bridge, Address};
 

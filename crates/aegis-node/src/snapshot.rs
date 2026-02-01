@@ -1,4 +1,4 @@
-// evice_blockchain/src/snapshot.rs
+// aegis-node/src/snapshot.rs
 
 use ark_serialize::Read;
 use borsh::{BorshDeserialize, BorshSerialize};

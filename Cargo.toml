@@ -33,7 +33,6 @@ aegis-core = { path = "crates/aegis-core" }
 # --- EXTERNAL LIBRARIES ---
 # Concurrency & Runtime
 tokio = { version = "1", features = ["full"] }
-tarpc = "0.29"
 rayon = "1.8"
 crossbeam = "0.8"
 parking_lot = "0.12"

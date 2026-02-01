@@ -1,7 +1,7 @@
-// evice_blockchain/src/bin/create_poseidon_params.rs
+// aegis-node/src/bin/create_poseidon_params.rs
 
 use ark_serialize::CanonicalSerialize;
-use evice_blockchain::l2_circuit::{get_poseidon_parameters, PoseidonMerkleTreeParams};
+use aegis_node::l2_circuit::{get_poseidon_parameters, PoseidonMerkleTreeParams};
 use std::fs::File;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {

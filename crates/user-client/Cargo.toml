@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 tokio = { workspace = true }
 tonic = { workspace = true }
+tonic-prost = { workspace = true }
 prost = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
@@ -14,4 +15,4 @@ tracing = { workspace = true }
 tracing-subscriber = { workspace = true }
 
 [build-dependencies]
-tonic-build = { workspace = true }
+tonic-prost-build = { workspace = true }

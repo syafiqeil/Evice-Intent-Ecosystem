@@ -1,9 +1,9 @@
-// evice_blockchain/src/serde_helpers.rs
+// aegis-node/src/serde_helpers.rs
 
 use ark_bls12_377::Fr;
 use ark_crypto_primitives::merkle_tree::Path;
 use ark_serialize::{CanonicalDeserialize, CanonicalSerialize};
-use evice_core::MerkleTreeConfig;
+use aegis_core::MerkleTreeConfig;
 use serde::{de::Error, Deserializer, Serializer};
 use serde_with::{Bytes, DeserializeAs, SerializeAs};
 

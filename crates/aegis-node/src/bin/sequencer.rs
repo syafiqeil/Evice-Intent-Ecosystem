@@ -1,10 +1,10 @@
-// evice_blockchain/src/bin/sequencer.rs
+// aegis-node/src/bin/sequencer.rs
 
 use ark_bls12_377::Bls12_377;
 use ark_groth16::Proof;
 use blst::min_pk::SecretKey as BlsSecretKey;
 use clap::Parser;
-use evice_blockchain::{
+use aegis_node::{
     crypto,
     crypto::{public_key_to_address, KeyPair, ValidatorKeys, PRIVATE_KEY_SIZE, PUBLIC_KEY_SIZE},
     genesis::Genesis,
@@ -377,7 +377,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
         };
 
-        use evice_blockchain::sequencer_selection::{SequencerSelector, StakeWeightedVrfSelector};
+        use aegis_node::sequencer_selection::{SequencerSelector, StakeWeightedVrfSelector};
         let selector = StakeWeightedVrfSelector;
         let selection_material = last_l1_hash.clone();
 
@@ -739,7 +739,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 nonce,
                 max_fee_per_gas: 30,
                 max_priority_fee_per_gas: 3,
-                signature: [0; evice_blockchain::crypto::SIGNATURE_SIZE],
+                signature: [0; crypto::SIGNATURE_SIZE],
                 chain_id: chain_id.clone(),
             };
             tx.signature = sequencer_keys.signing_keys.sign(&tx.message_hash());
@@ -791,7 +791,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 nonce,
                 max_fee_per_gas: 20,
                 max_priority_fee_per_gas: 2,
-                signature: [0; evice_blockchain::crypto::SIGNATURE_SIZE],
+                signature: [0; crypto::SIGNATURE_SIZE],
                 chain_id: chain_id.clone(),
             };
             tx.signature = sequencer_keys.signing_keys.sign(&tx.message_hash());

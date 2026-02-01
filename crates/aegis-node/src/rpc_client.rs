@@ -1,4 +1,4 @@
-// evice_blockchain/src/rpc_client.rs
+// aegis-node/src/rpc_client.rs
 
 use bincode::{Decode, Encode};
 use rpc_proto::{
@@ -15,7 +15,7 @@ use tonic::transport::{Channel, Endpoint};
 use crate::blockchain::Block;
 use crate::serde_helpers;
 use crate::{Address, Transaction};
-use evice_core::{Leaf, MerkleTreeConfig};
+use aegis_core::{Leaf, MerkleTreeConfig};
 
 pub struct AccountInfo {
     pub balance: u64,
